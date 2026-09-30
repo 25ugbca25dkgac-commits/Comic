@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ComicCraft AI</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f1ff;
+            color: #222;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 40px auto;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        h1 {
+            text-align: center;
+            margin: 0 0 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-top: 18px;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+            background: white;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .generate-button {
+            display: block;
+            width: 100%;
+            margin-top: 30px;
+            padding: 16px;
+            border: none;
+            border-radius: 10px;
+            background: #6c4cff;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .generate-button:hover {
+            background: #5638e8;
+        }
+
+        .error {
+            background: #ffe5e5;
+            color: #b00020;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>ComicCraft AI</h1>
+
+        <p class="subtitle">
+            Create your own AI-powered comic
+        </p>
+
+        {% if error %}
+        <div class="error">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        <form action="/generate" method="post">
+
+            <label for="story_prompt">
+                Story Prompt
+            </label>
+
+            <textarea
+                id="story_prompt"
+                name="story_prompt"
+                placeholder="Enter your comic story idea..."
+                required
+            >{{ form.story_prompt if form else "" }}</textarea>
+
+
+            <label for="character_name">
+                Character Name
+            </label>
+
+            <input
+                type="text"
+                id="character_name"
+                name="character_name"
+                placeholder="Example: Arjun"
+                value="{{ form.character_name if form else defaults.character_name }}"
+                required
+            >
+
+
+            <label for="setting">
+                Setting
+            </label>
+
+            <input
+                type="text"
+                id="setting"
+                name="setting"
+                placeholder="Example: Enchanted Forest"
+                value="{{ form.setting if form else defaults.setting }}"
+                required
+            >
+
+
+            <label for="tone">
+                Tone
+            </label>
+
+            <select id="tone" name="tone">
+
+                <option value="dramatic">Dramatic</option>
+
+                <option value="funny">Funny</option>
+
+                <option value="adventure">Adventure</option>
+
+                <option value="emotional">Emotional</option>
+
+            </select>
+
+
+            <label for="art_style">
+                Art Style
+            </label>
+
+            <select id="art_style" name="art_style">
+
+                <option value="comic book">Comic Book</option>
+
+                <option value="manga">Manga</option>
+                </select>
+
+<button type="submit" class="generate-button">
+    Generate Comic
+</button>
+
